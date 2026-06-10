@@ -4,6 +4,11 @@ $products = json_decode($json_data, true);
 
 if ($products && is_array($products)) {
     foreach ($products as $product) {
+        // Skip hidden products
+        if (isset($product['hidden']) && $product['hidden']) {
+            continue;
+        }
+        
         $prod_id = htmlspecialchars($product['id']);
         $price = htmlspecialchars($product['price']);
         $badge = htmlspecialchars($product['badge']);
@@ -23,7 +28,7 @@ if ($products && is_array($products)) {
 
         <div class="product-card" id="<?php echo $prod_id; ?>" data-type="<?php echo $type; ?>">
             <div class="product-image-wrapper">
-                <!-- حاوية السلايدر التي تدعم السحب اللمسي والتمرير -->
+                <!-- Image Slider -->
                 <div class="images-slider">
                     <?php 
                     foreach ($images as $index => $img_url) {
@@ -34,10 +39,11 @@ if ($products && is_array($products)) {
                 </div>
                 
                 <?php if (count($images) > 1): ?>
-                    <!-- أزرار التنقل بالنقرات -->
+                    <!-- Navigation Arrows -->
                     <button class="slide-nav prev" onclick="changeSlide('<?php echo $prod_id; ?>', -1, event)"><i class="fa-solid fa-chevron-left"></i></button>
                     <button class="slide-nav next" onclick="changeSlide('<?php echo $prod_id; ?>', 1, event)"><i class="fa-solid fa-chevron-right"></i></button>
                     
+                    <!-- Slider Dots -->
                     <div class="slider-dots">
                         <?php foreach ($images as $index => $img_url): ?>
                             <span class="dot <?php echo ($index === 0) ? 'active' : ''; ?>"></span>
@@ -82,6 +88,6 @@ if ($products && is_array($products)) {
         <?php
     }
 } else {
-    echo '<p style="color: var(--text-secondary);">No products found.</p>';
+    echo '<p style="color: var(--text-secondary); text-align: center;">No products found.</p>';
 }
 ?>
