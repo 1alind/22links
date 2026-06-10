@@ -1,95 +1,133 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>22 Show - Shop</title>
+    <title>22 Show - Links</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="shop-style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
-<body class="lang-badini">
+<body>
 
-    <div class="shop-container">
+    <div class="container">
 
-        <!-- شريط اختيار اللغات العلوي -->
-        <div class="lang-switcher">
-            <button class="lang-btn active" onclick="switchLanguage('badini')">بادیني</button>
-            <button class="lang-btn" onclick="switchLanguage('sorani')">سۆرانی</button>
-            <button class="lang-btn" onclick="switchLanguage('arabic')">العربية</button>
-            <button class="lang-btn" onclick="switchLanguage('english')">English</button>
+        <div class="logo-container">
+        <?php
+            $logop = './logo.txt';
+            if (file_exists($logop)) {
+                echo file_get_contents($logop);
+            } else {
+                echo "// Error: Script file not found at $logop";
+            }
+        ?>
         </div>
 
-        <!-- زر العودة -->
-        <div class="back-btn-wrapper">
-            <a href="../" class="back-btn" id="backBtn">
-                <i class="fa-solid fa-arrow-left"></i> <span>زڤرن بۆ لاپەڕێ سەرەكي</span>
-            </a>
+        <div class="header-container">
+            <h1>22 Show</h1> 
+            <span id="emoji-slider">👕</span>
+        </div>
+        
+        <div class="description">
+            بو فروتنا جل و بەرگێن گەنجان<br>
+            دهوك - تاخێ سەرهلدان، نێزیك پاركا سەرهلدان
         </div>
 
-        <!-- الهيدر -->
-        <div class="shop-header">
-            <div class="shop-logo">
-                <?php
-                    $logop = '../logo.txt';
-                    if (file_exists($logop)) {
-                        echo file_get_contents($logop);
-                    } else {
-                        echo "<span style='color: #ffffff; font-size: 24px; font-weight: bold;'>22 SHOW</span>";
-                    }
-                ?>
-            </div>
-            <p class="shop-subtitle">[ Online Shopping - BETA ]</p>
+<div id="btnstbl">
+    <button class="link-card btn1" onclick="openUrl('whatsapp')">
+        <img src="https://1alind.sirv.com/Images/whatsapp_logo.png" alt="WA">
+        <span class="link-text">WhatsApp</span>
+    </button>
+
+    <button class="link-card btn2" onclick="openUrl('instagram')">
+        <img src="https://1alind.sirv.com/Images/instagram.png" alt="IG">
+        <span class="link-text">Instagram</span>
+    </button>
+
+    <button class="link-card btn3" onclick="openUrl('tiktok')">
+        <img src="https://1alind.sirv.com/Images/tiktok_logo.png" alt="TT">
+        <span class="link-text">TikTok</span>
+    </button>
+
+    <button class="link-card btn4" onclick="openUrl('snapchat')">
+        <img src="https://1alind.sirv.com/Images/snapchat_logo.png" alt="SC">
+        <span class="link-text">Snapchat</span>
+    </button>
+
+    <button class="link-card btn5" onclick="saveContact()">
+        <svg width="25px" height="25px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="32" cy="32" r="30" fill="#ffffff"/>
+
+    <circle cx="25" cy="24" r="6" fill="none" stroke="#000000" stroke-width="3"/>
+
+    <path d="M15 40c0-6 4-10 10-10s10 4 10 10"
+          fill="none"
+          stroke="#000000"
+          stroke-width="3"
+          stroke-linecap="round"/>
+
+    <line x1="44" y1="24" x2="44" y2="36"
+          stroke="#000000"
+          stroke-width="3"
+          stroke-linecap="round"/>
+
+    <line x1="38" y1="30" x2="50" y2="30"
+          stroke="#000000"
+          stroke-width="3"
+          stroke-linecap="round"/>
+</svg>
+        <span class="link-text">Save Contact</span>
+    </button>
+
+    <button class="link-card btn6" onclick="openUrl('applemaps')">
+        <img src="https://1alind.sirv.com/Images/AppleMaps_logo.png" alt="AP">
+        <span class="link-text">Apple Maps</span>
+    </button>
+
+    <button class="link-card btn7" onclick="openUrl('googlemaps')">
+        <img src="https://1alind.sirv.com/Images/GoogleMaps_logo.png" alt="GM">
+        <span class="link-text">Google Maps</span>
+    </button>
+
+<button class="link-card brn8" onclick="openUrl('shop')">
+        <span class="btn-icon">🛍️</span>
+        
+        <div class="btn-text-container">
+            <span class="link-text-shop">Online Shopping [BETA]</span>
+            <span class="beta-subtext">only available in Kurdistan region, republic of Iraq 🇮🇶.</span>
+        </div>
+    </button>
+
+</div>
+
+        <div class="map-container">
+            <iframe src="https://maps.google.com/maps?width=600&height=400&hl=en&q=22show&t=&z=15&ie=UTF8&iwloc=B&output=embed" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
 
-        <!-- شبكة المنتجات (تُجلب ديناميكياً من السكربت المنفصل) -->
-        <div class="products-grid">
-            <?php include __DIR__ . '/load-products.php'; ?>
+        <div class="footer-location">
+            .تاخێ سەرهلدان
+            <i class="fa-solid fa-location-dot"></i>
         </div>
 
-        <!-- ================= نافذة خيارات الطلب المنبثقة (Order Options Modal) ================= -->
-        <div id="orderModal" class="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal()">&times;</span>
-                
-                <h3 id="modalProductTitle">اسم المنتج</h3>
-                <p id="modalProductPrice" class="price">00,000 د.ع</p>
-                
-                <div class="modal-form">
-                    <!-- حقل خيار المقاس -->
-                    <div class="form-group" id="sizeGroup">
-                        <label id="lblSize" data-badini="قیاس:" data-sorani="قەبارە:" data-arabic="القياس:" data-english="Size:">القياس:</label>
-                        <select id="prodSize"></select>
-                    </div>
+       <footer class="copyright-section">
+    <p>&copy; <?php echo date('Y'); ?> <strong>22 Show</strong>. All rights reserved.</p>
+    <p style="margin-top: 5px; font-size: 11px;">
+        <a href="privacy.php" style="color: #777; text-decoration: none;">Privacy Policy</a> | 
+        <a href="terms.php" style="color: #777; text-decoration: none;">Terms of Service</a>
+    </p>
+</footer>
 
-                    <!-- حقل اختيار الكمية -->
-                    <div class="form-group">
-                        <label id="lblQty" data-badini="چەند دانە:" data-sorani="ژمارەی دانە:" data-arabic="الكمية:" data-english="Quantity:">الكمية:</label>
-                        <div class="quantity-control">
-                            <button type="button" onclick="updateQty(-1)">-</button>
-                            <input type="number" id="prodQty" value="1" min="1" readonly>
-                            <button type="button" onclick="updateQty(1)">+</button>
-                        </div>
-                    </div>
-
-                    <!-- زر التأكيد النهائي والإرسال للواتساب -->
-                    <button class="order-btn" onclick="submitToWhatsApp()">
-                        <i class="fa-brands fa-whatsapp"></i> <span id="btnModalConfirm">تأكيد الطلب وإرسال</span>
-                    </button>
-                </div>
-            </div>
         </div>
 
-        <!-- الفوتر -->
-        <footer class="shop-copyright">
-            <p id="copyrightText">&copy; <?php echo date('Y'); ?> <strong>22 Show</strong>. All rights reserved.</p>
-            <p class="policy-links">
-                <a href="../privacy.php" id="privacyLink">Privacy Policy</a> | 
-                <a href="../terms.php" id="termsLink">Terms of Service</a>
-            </p>
-        </footer>
+    <script>
+    <?php
+        $scriptPath = './script.js';
+        if (file_exists($scriptPath)) {
+            echo file_get_contents($scriptPath);
+        } else {
+            echo "// Error: Script file not found at $scriptPath";
+        }
+    ?>
+    </script>
 
-    </div>
-
-    <script src="shop-script.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
